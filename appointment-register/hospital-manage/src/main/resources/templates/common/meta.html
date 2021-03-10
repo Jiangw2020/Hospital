@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div th:fragment="meta">
+    <title>协和医院管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1" />
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <style type="text/css">
+        .searchInput{width: 45%;height: 40px;border: 1px solid #e7eaec;}
+        /*tr{border:1px solid #e7eaec;}*/
+        .tip{height: 0;width: 12px;border: 4px solid transparent;border-left-color: #888;display: inline-block;margin:0 5px 0 15px;}
+    </style>
+
+    <link th:href="@{/css/plugins/iCheck/custom.css}" rel="stylesheet" />
+    <link th:href="@{/css/favicon.ico}" rel="shortcut icon"/>
+    <link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min93e3.css?v=4.4.0}" rel="stylesheet"/>
+    <link th:href="@{/css/plugins/dataTables/dataTables.bootstrap.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
+    <link th:href="@{/css/layout-sd.css}" rel="stylesheet"/>
+    <link th:href="@{/css/show.css}" rel="stylesheet"/>
+
+    <script th:src="@{/js/app.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js?v=3.3.6}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/layer/layer.js}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/validate/jquery.validate.min.js}" type="text/javascript" ></script>
+    <script th:src="@{/js/plugins/validate/messages_zh.min.js}" type="text/javascript" ></script>
+    <script th:src="@{/js/plugins/datePicker/WdatePicker.js}" type="text/javascript"></script>
+    <script th:src="@{/js/plugins/layer/layer.js}" type="text/javascript"></script>
+
+    <script th:src="@{/js/common/common.js}" type="text/javascript"></script>
+    <script th:src="@{/js/common/util.js}" type="text/javascript"></script>
+    <script th:src="@{/js/common/jquery.select.js}" type="text/javascript"></script>
+    <script th:src="@{/js/sd_js/validate.expand.js}" type="text/javascript"></script>
+
+
+
+    <link rel="stylesheet" th:href="@{/css/demo/index.css}">
+    <!-- import Vue before Element -->
+    <script th:src="@{/css/demo/vue.js}"></script>
+    <!-- 引入组件库 -->
+    <script th:src="@{/css/demo/index.js}"></script>
+    <style type="text/css">
+        /*.searchInput{width: 45%;height: 30px;border: 1px solid #e7eaec;}*/
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .ibox-content .posf{
+            position:fixed;bottom:0; right:0; margin-right:0;
+        }
+        .form-horizontal .posf{
+            position:fixed;bottom:0; right:0; margin-right:0;
+        }
+        .ps .posh{
+            height:100%; margin-right:0; margin-bottom:0;
+        }
+        .show {
+            display: block;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        $(function(){
+            var type = [[${messageType}]];
+            if(type != null) {
+                opt.dialog([[${message}]],[[${messageType}]]);
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

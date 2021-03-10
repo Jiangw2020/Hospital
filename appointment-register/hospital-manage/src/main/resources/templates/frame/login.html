@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/meta :: meta"></head>
+<body class="gray-bg">
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">TD</h1>
+        </div>
+        <h3>欢迎使用医院接口模拟管理系统</h3>
+
+        <form class="ec" role="form" action="#" method="post">
+            <div class="form-group">
+                <input type="text" name="userName" id="userName" value="admin" maxlength="15" class="form-control" placeholder="用户名"/>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" id="password" value="111111" maxlength="15" class="form-control" placeholder="密码"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="code" id="code" value="" maxlength="4" class="form-control" placeholder="验证码" style="width:180px;display:inline;float:left;"/>
+                <a href="javascript:" id="a-code" style="float:right;display:inline">
+                    <img id="img-code" src="/validate/code" width="100" height="30" style="margin-left:5px;" />
+                </a>
+            </div>
+            <div class="hr-line-dashed" style="clear: both;"></div>
+            <button type="button" id="login" class="btn btn-primary block full-width m-b">登 录</button>
+
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $("#login").on("click",function() {
+        var userName = $("#userName").val();
+        var password = $("#password").val();
+        var code = $("#code").val();
+        if (userName == "") {
+            opt.alert("请输入您的用户名!");
+            return;
+        }
+        if (password == "") {
+            opt.alert("请输入您的密码!");
+            return;
+        }
+        if (code == "") {
+            opt.alert("请输入您的验证码!");
+            return;
+        }
+        ajax.post("/login",{
+            userName:userName,
+            password:password,
+            code    :code
+        },function(data) {
+            window.location.href ="/";
+        },function (data) {
+            opt.alert(data.message);
+            if(data.message.indexOf("验证码") != -1) {
+                $("#a-code").trigger("click");
+            }
+        });
+    });
+
+    $("#a-code").on("click",function(){
+        $('#img-code').attr('src','/validate/code?v='+Math.random());
+    });
+
+    if(window.top !== window.self){ window.top.location = window.location;}
+    document.onkeydown = function(e) {
+        var evt = e || window.event || null;
+        if (evt.keyCode == 13) {
+            document.getElementById('login').click();
+        }
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/meta :: meta"></head>
+<body class="gray-bg">
+<div id="app-container">
+<form id="ec" th:action="@{/department/list}" method="post" class="form-horizontal">
+    <input type="hidden"  name="pageSize" id="pageSize"  value="10"/>
+    <input type="hidden"  name="pageNum" id="pageNum"  th:value="${pageNum}"/>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-2" style="width: 150px">
+                                <button type="button" id="loading-example-btn" onclick="javascript:window.location.reload(true);" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                                <button type="button"  class="btn btn-white btn-sm" onclick="javascript:opt.openWin('/department/create','添加',550,450);">添加</button>
+                            </div>
+
+                        </div>
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>医院编号</th>
+                                <th>科室编号</th>
+                                <th>科室名称 </th>
+                                <th>大科室编号 </th>
+                                <th>大科室名称</th>
+                                <th>科室描述</th>
+                                <th>操作 </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="gradeX" th:each="item,it : ${list}">
+                                <td th:text="${it.count}">11</td>
+                                <td th:text="${item.hoscode}">22</td>
+                                <td th:text="${item.depcode}">33</td>
+                                <td th:text="${item.depname}">22</td>
+                                <td th:text="${item.bigcode}">22</td>
+                                <td th:text="${item.bigname}">33</td>
+                                <td th:text="${item.intro}">33</td>
+                                <td class="text-center">
+                                    <a class="delete" th:attr="data-depcode=${item.depcode}">删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <el-pagination
+                        :current-page="pageNum"
+                        :total="total"
+                        :page-size="pageSize"
+                        style="padding: 30px 0; text-align: center;"
+                        layout="sizes, prev, pager, next, jumper, ->, total, slot"
+                        @current-change="fetchData"
+                />
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+<script>
+var app = new Vue({
+    el: '#app-container',
+
+    data() {
+        return {
+            total: [[${total}]], // 数据库中的总记录数
+            pageNum: [[${pageNum}]], // 默认页码
+            pageSize: 10 // 每页记录数
+        }
+    },
+
+    methods: {
+        fetchData(page = 1) {
+            document.forms.ec.pageNum.value=page
+            document.forms.ec.submit();
+        }
+    }
+})
+</script>
+<script th:inline="javascript">
+    $(function(){
+        $(".delete").on("click",function(){
+            var depcode = $(this).attr("data-depcode");
+            opt.confirm('/department/remove/'+depcode);
+        });
+    });
+</script>
+</body>
+</html>

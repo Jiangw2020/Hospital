@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <head th:include="common/meta :: meta"></head>
+</head>
+<body class="gray-bg">
+
+<div class="middle-box text-center animated fadeInDown">
+    <p th:text="'Url:' + ${URL}" />
+    <p th:text="'Error:' + ${error}" />
+    <p th:text="'Status:' + ${status}" />
+    <p th:text="'Timestamp:' + ${timestamp}" />
+</div>
+
+</body>
+</html>

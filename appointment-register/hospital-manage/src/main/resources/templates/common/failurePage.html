@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="common/meta :: meta"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="form-group">
+                <div class="col-sm-10" th:text="${messagePage}">操作失败</div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group posf">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <button class="btn btn-primary" type="button" onclick="goBack()">返 回</button>
+                    <button class="btn btn-primary" type="button" onclick="opt.closeWin();">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function goBack(){
+        try{
+            if(window.opener){
+                window.close();
+            }else{
+                history.go(-1);
+            }
+        }catch(err){
+        }
+    }
+</script>
+</body>
+</html>
