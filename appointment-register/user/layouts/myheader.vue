@@ -117,7 +117,7 @@ import Vue from 'vue'
 import userInfoApi from '@/api/user/userInfo'
 import smsApi from '@/api/msm/msm'
 import hospitalApi from '@/api/hosp/hospital'
-// import weixinApi from '@/api/user/weixin'
+import weixinApi from '@/api/user/weixin'
 
 const defaultDialogAtrr = {
   showLoginType: 'phone', // 控制手机登录与微信登录切换
@@ -173,7 +173,7 @@ export default {
     // 微信登录回调处理
     let self = this;
     window["loginCallback"] = (name,token, openid) => {
-      debugger
+      // debugger
       self.loginCallback(name, token, openid);
     }
   },
@@ -344,7 +344,7 @@ export default {
           id: 'weixinLogin', // 需要显示的容器id
           appid: response.data.appid, // 公众号appid wx*******
           scope: response.data.scope, // 网页默认即可
-          redirect_uri: response.data.redirectUri, // 授权成功后回调的url
+          redirect_uri: response.data.redirect_uri, // 授权成功后回调的url
           state: response.data.state, // 可设置为简单的随机数加session用来校验
           style: 'black', // 提供"black"、"white"可选。二维码的样式
           href: '' // 外部css文件url，需要https

@@ -97,7 +97,7 @@ import '~/assets/css/hospital.css'
 
 import cookie from 'js-cookie'
 import hospitalApi from '@/api/hosp/hospital'
-// import userInfoApi from '@/api/user/userInfo'
+import userInfoApi from '@/api/user/userInfo'
 
 export default {
   data() {
@@ -145,15 +145,15 @@ export default {
         return
       }
 
-      // //判断认证
-      // userInfoApi.getUserInfo().then(response => {
-      //   let authStatus = response.data.authStatus
-      //   // 状态为2认证通过
-      //   if (!authStatus || authStatus != 2) {
-      //     window.location.href = '/user'
-      //     return
-      //   }
-      // })
+      //判断认证
+      userInfoApi.getUserInfo().then(response => {
+        let authStatus = response.data.authStatus
+        // 状态为2认证通过
+        if (!authStatus || authStatus != 2) {
+          window.location.href = '/user'
+          return
+        }
+      })
 
       window.location.href = '/hospital/schedule?hoscode=' + this.hospital.hoscode + "&depcode=" + depcode
     }
