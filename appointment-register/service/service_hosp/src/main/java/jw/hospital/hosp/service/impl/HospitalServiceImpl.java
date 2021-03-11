@@ -1,6 +1,7 @@
 package jw.hospital.hosp.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import jw.hospital.cmnclient.DictFeignClient;
 import jw.hospital.hosp.repository.HospitalRepository;
 import jw.hospital.hosp.service.HospitalService;
 import jw.hospital.model.hosp.Hospital;
@@ -20,9 +21,9 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Autowired
     private HospitalRepository hospitalRepository;
-//
-//    @Autowired
-//    private DictFeignClient dictFeignClient;
+
+    @Autowired
+    private DictFeignClient dictFeignClient;
 
     @Override
     public void save(Map<String, Object> paramMap) {
@@ -138,14 +139,14 @@ public class HospitalServiceImpl implements HospitalService {
     //获取查询list集合，遍历进行医院等级封装
     private Hospital setHospitalHosType(Hospital hospital) {
         //根据dictCode和value获取医院等级名称
-//        String hostypeString = dictFeignClient.getName("Hostype", hospital.getHostype());
-//        //查询省 市  地区
-//        String provinceString = dictFeignClient.getName(hospital.getProvinceCode());
-//        String cityString = dictFeignClient.getName(hospital.getCityCode());
-//        String districtString = dictFeignClient.getName(hospital.getDistrictCode());
-//
-//        hospital.getParam().put("fullAddress",provinceString+cityString+districtString);
-//        hospital.getParam().put("hostypeString",hostypeString);
+        String hostypeString = dictFeignClient.getName("Hostype", hospital.getHostype());
+        //查询省 市  地区
+        String provinceString = dictFeignClient.getName(hospital.getProvinceCode());
+        String cityString = dictFeignClient.getName(hospital.getCityCode());
+        String districtString = dictFeignClient.getName(hospital.getDistrictCode());
+
+        hospital.getParam().put("fullAddress",provinceString+cityString+districtString);
+        hospital.getParam().put("hostypeString",hostypeString);
         return hospital;
     }
 }
