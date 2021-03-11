@@ -113,9 +113,9 @@
 <script>
 import cookie from 'js-cookie'
 import Vue from 'vue'
-//
-// import userInfoApi from '@/api/user/userInfo'
-// import smsApi from '@/api/sms/sms'
+
+import userInfoApi from '@/api/user/userInfo'
+import smsApi from '@/api/msm/msm'
 import hospitalApi from '@/api/hosp/hospital'
 // import weixinApi from '@/api/user/weixin'
 
@@ -214,7 +214,7 @@ export default {
 
     // 登录
     login() {
-      debugger
+      // debugger
       this.userInfo.code = this.dialogAtrr.inputValue
 
       if(this.dialogAtrr.loginBtn == '正在提交...') {
@@ -226,7 +226,7 @@ export default {
         this.$message.error('验证码必须输入')
         return;
       }
-      if (this.userInfo.code.length != 6) {
+      if (this.userInfo.code.length != 4) {
         this.$message.error('验证码格式不正确')
         return;
       }

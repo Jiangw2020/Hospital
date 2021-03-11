@@ -15,7 +15,7 @@ public class JwtHelper {
     //根据参数生成token
     public static String createToken(Long userId, String userName) {
         String token = Jwts.builder()
-                .setSubject("YYGH-USER")
+                .setSubject("USER")
                 .setExpiration(new Date(System.currentTimeMillis() + tokenExpiration))
                 .claim("userId", userId)
                 .claim("userName", userName)

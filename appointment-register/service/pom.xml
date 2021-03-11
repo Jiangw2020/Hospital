@@ -13,6 +13,8 @@
         <module>service_user</module>
         <module>service_hosp</module>
         <module>service_cmn</module>
+        <module>service_oss</module>
+        <module>service_msm</module>
     </modules>
     <artifactId>service</artifactId>
 
