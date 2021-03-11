@@ -15,9 +15,9 @@ public class GlobalExceptionHandler {
         return Result.fail();
     }
 
-    @ExceptionHandler(HosptialException.class)
+    @ExceptionHandler(HospitalException.class)
     @ResponseBody
-    public Result error(HosptialException e) {
+    public Result error(HospitalException e) {
         e.printStackTrace();
         return Result.fail();
     }

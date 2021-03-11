@@ -38,7 +38,7 @@ spring:
       max-lifetime: 540000
       maximum-pool-size: 12
       minimum-idle: 10
-      pool-name: MyHikariPool
+#      pool-name: MyHikariPool
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
