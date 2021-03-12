@@ -25,7 +25,7 @@
                 <th width="15%">姓名</th>
                 <td width="35%"><b>{{ userInfo.name }}</b></td>
                 <th width="15%">证件类型</th>
-                <td width="35%">{{ userInfo.certificatesType }}</td>
+                <td width="35%">{{ userInfo.certificatesType}}</td>
             </tr>
             <tr>
                 <th>证件号</th>
