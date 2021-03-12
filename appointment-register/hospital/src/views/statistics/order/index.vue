@@ -35,63 +35,63 @@
 </template>
 
 <script>
-// import echarts from 'echarts'
-// import statisticsApi from '@/api/sta'
-//
-// export default {
-//
-//     data() {
-//         return {
-//             searchObj: {
-//                 hosname: '',
-//                 reserveDateBegin: '',
-//                 reserveDateEnd: ''
-//             },
-//             btnDisabled: false,
-//             chart: null,
-//             title: '',
-//             xData: [], // x轴数据
-//             yData: [] // y轴数据
-//         }
-//     },
-//
-//     methods: {
-//         // 初始化图表数据
-//         showChart() {
-//             statisticsApi.getCountMap(this.searchObj).then(response => {
-//                 this.yData = response.data.countList
-//                 this.xData = response.data.dateList
-//                 this.setChartData()
-//             })
-//         },
-//
-//         setChartData() {
-//             // 基于准备好的dom，初始化echarts实例
-//             var myChart = echarts.init(document.getElementById('chart'))
-//             // 指定图表的配置项和数据
-//             var option = {
-//                 title: {
-//                     text: this.title + '挂号量统计'
-//                 },
-//                 tooltip: {},
-//                 legend: {
-//                     data: [this.title]
-//                 },
-//                 xAxis: {
-//                     data: this.xData
-//                 },
-//                 yAxis: {
-//                     minInterval: 1
-//                 },
-//                 series: [{
-//                     name: this.title,
-//                     type: 'line',
-//                     data: this.yData
-//                 }]
-//             }
-//             // 使用刚指定的配置项和数据显示图表。
-//             myChart.setOption(option)
-//         },
-//     }
-// }
+import * as echarts from 'echarts'
+import statisticsApi from '@/api/sta'
+
+export default {
+
+    data() {
+        return {
+            searchObj: {
+                hosname: '',
+                reserveDateBegin: '',
+                reserveDateEnd: ''
+            },
+            btnDisabled: false,
+            chart: null,
+            title: '',
+            xData: [], // x轴数据
+            yData: [] // y轴数据
+        }
+    },
+
+    methods: {
+        // 初始化图表数据
+        showChart() {
+            statisticsApi.getCountMap(this.searchObj).then(response => {
+                this.yData = response.data.countList
+                this.xData = response.data.dateList
+                this.setChartData()
+            })
+        },
+
+        setChartData() {
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart'))
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: this.title + '挂号量统计'
+                },
+                tooltip: {},
+                legend: {
+                    data: [this.title]
+                },
+                xAxis: {
+                    data: this.xData
+                },
+                yAxis: {
+                    minInterval: 1
+                },
+                series: [{
+                    name: this.title,
+                    type: 'line',
+                    data: this.yData
+                }]
+            }
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option)
+        },
+    }
+}
 </script>
