@@ -3,20 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>appointment-register</artifactId>
+        <artifactId>service</artifactId>
         <groupId>jw.hospital</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
-    <modules>
-        <module>service_hosp_client</module>
-        <module>service_cmn_client</module>
-        <module>service_user_client</module>
-        <module>service_order_client</module>
-    </modules>
 
-    <artifactId>service_client</artifactId>
+    <artifactId>service_order</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -25,30 +18,33 @@
     <dependencies>
         <dependency>
             <groupId>jw.hospital</groupId>
-            <artifactId>common_util</artifactId>
+            <artifactId>service_cmn_client</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>provided </scope>
         </dependency>
 
         <dependency>
             <groupId>jw.hospital</groupId>
-            <artifactId>model</artifactId>
+            <artifactId>service_user_client</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>provided </scope>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <scope>provided </scope>
+            <groupId>jw.hospital</groupId>
+            <artifactId>service_hosp_client</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <!-- 服务调用feign -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <scope>provided </scope>
+            <groupId>jw.hospital</groupId>
+            <artifactId>rabbit_util</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.wxpay</groupId>
+            <artifactId>wxpay-sdk</artifactId>
+            <version>0.0.3</version>
+        </dependency>
     </dependencies>
+
 </project>
