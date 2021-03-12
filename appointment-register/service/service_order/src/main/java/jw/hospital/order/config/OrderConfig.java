@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@MapperScan("com.atguigu.yygh.order.mapper")
+@MapperScan("jw.hospital.order.mapper")
 public class OrderConfig {
 
 }

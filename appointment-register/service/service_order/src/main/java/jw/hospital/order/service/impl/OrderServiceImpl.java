@@ -5,12 +5,22 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import jw.hospital.common.exception.HospitalException;
+import jw.hospital.common.helper.HttpRequestHelper;
+import jw.hospital.common.result.ResultCodeEnum;
+import jw.hospital.enums.OrderStatusEnum;
+import jw.hospital.hospclient.HospitalFeignClient;
 import jw.hospital.model.order.OrderInfo;
+import jw.hospital.model.user.Patient;
 import jw.hospital.order.mapper.OrderMapper;
 import jw.hospital.order.service.OrderService;
-import jw.hospital.vo.order.OrderMqVo;
-import jw.hospital.vo.order.OrderQueryVo;
-import jw.hospital.vo.order.SignInfoVo;
+import jw.hospital.order.service.WeixinService;
+import jw.hospital.rabbitmq.constant.MqConst;
+import jw.hospital.rabbitmq.service.RabbitService;
+import jw.hospital.userclient.PatientFeignClient;
+import jw.hospital.vo.hosp.ScheduleOrderVo;
+import jw.hospital.vo.msm.MsmVo;
+import jw.hospital.vo.order.*;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +58,7 @@ public class OrderServiceImpl extends
         //判断当前时间是否还可以预约
         if(new DateTime(scheduleOrderVo.getStartTime()).isAfterNow()
                 || new DateTime(scheduleOrderVo.getEndTime()).isBeforeNow()) {
-            throw new YyghException(ResultCodeEnum.TIME_NO);
+            throw new HospitalException(ResultCodeEnum.TIME_NO);
         }
 
         //获取签名信息
@@ -145,7 +155,7 @@ public class OrderServiceImpl extends
 
             rabbitService.sendMessage(MqConst.EXCHANGE_DIRECT_ORDER, MqConst.ROUTING_ORDER, orderMqVo);
         } else {
-            throw new YyghException(result.getString("message"), ResultCodeEnum.FAIL.getCode());
+            throw new HospitalException(result.getString("message"), ResultCodeEnum.FAIL.getCode());
         }
         return orderInfo.getId();
     }
@@ -205,12 +215,12 @@ public class OrderServiceImpl extends
         //判断是否取消
         DateTime quitTime = new DateTime(orderInfo.getQuitTime());
         if(quitTime.isBeforeNow()) {
-            throw new YyghException(ResultCodeEnum.CANCEL_ORDER_NO);
+            throw new HospitalException(ResultCodeEnum.CANCEL_ORDER_NO);
         }
         //调用医院接口实现预约取消
         SignInfoVo signInfoVo = hospitalFeignClient.getSignInfoVo(orderInfo.getHoscode());
         if(null == signInfoVo) {
-            throw new YyghException(ResultCodeEnum.PARAM_ERROR);
+            throw new HospitalException(ResultCodeEnum.PARAM_ERROR);
         }
         Map<String, Object> reqMap = new HashMap<>();
         reqMap.put("hoscode",orderInfo.getHoscode());
@@ -223,13 +233,13 @@ public class OrderServiceImpl extends
                 signInfoVo.getApiUrl()+"/order/updateCancelStatus");
         //根据医院接口返回数据
         if(result.getInteger("code")!=200) {
-            throw new YyghException(result.getString("message"), ResultCodeEnum.FAIL.getCode());
+            throw new HospitalException(result.getString("message"), ResultCodeEnum.FAIL.getCode());
         } else {
             //判断当前订单是否可以取消
             if(orderInfo.getOrderStatus().intValue() == OrderStatusEnum.PAID.getStatus().intValue()) {
                 Boolean isRefund = weixinService.refund(orderId);
                 if(!isRefund) {
-                    throw new YyghException(ResultCodeEnum.CANCEL_ORDER_FAIL);
+                    throw new HospitalException(ResultCodeEnum.CANCEL_ORDER_FAIL);
                 }
                 //更新订单状态
                 orderInfo.setOrderStatus(OrderStatusEnum.CANCLE.getStatus());

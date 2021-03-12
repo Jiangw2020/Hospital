@@ -27,7 +27,7 @@ export default {
 
   getOrderInfo(orderId) {
     return request({
-      url: `${api_name}/auth/getOrderInfo/${orderId}`,
+      url: `${api_name}/auth/getOrders/${orderId}`,
       method: 'get'
     })
   },

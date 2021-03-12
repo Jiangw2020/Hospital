@@ -34,10 +34,10 @@ public class WeixinServiceImpl implements WeixinService {
 
     @Autowired
     private RedisTemplate redisTemplate;
-    
+
     @Autowired
     private RefundInfoService refundInfoService;
-    
+
 
     //生成微信支付二维码
     @Override
